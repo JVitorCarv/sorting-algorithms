@@ -6,80 +6,82 @@
 
 void merge(int vetor[], int l, int m, int r)
 {
-  int i, j, k;
-  int n1 = m - l + 1; // Define o tamanho do primeiro vetor e l+1 pois m é acrescido de 1
-  int n2 = r - m;     // Define o tamanho do segundo vetor. m não é acrescido de 1 pois ja vem assim
-  int L[n1];          // Cria o primeiro vetor
-  int R[n2];          // Cria o segundo vetor
+  int n1 = m - l + 1;
+  int n2 = r - m;
+  int left[n1], right[n2];
 
-  for (i = 0; i < n1; i++)
+  // Preenche os subvetores
+  for (int i = 0; i < n1; i++)
   {
-    L[i] = vetor[l + i];
+    left[i] = vetor[i + l]; // +l porque o indice pode ser diferente de zero
+  }
+  for (int i = 0; i < n2; i++)
+  {
+    right[i] = vetor[i + m + 1]; // +m+1 pq e a partir da segunda metade
   }
 
-  for (j = 0; j < n2; j++)
-  {
-    R[j] = vetor[m + 1 + j];
-  }
+  int i = 0, j = 0;
+  int k = l; // Ele precisa considerar tambem os casos dos subvetores
 
-  i = 0; // Indices do primeiro subvetor
-  j = 0; // Indices do segundo subvetor
-  k = l; // Indices do vetor ja combinado
-
+  // Executa enquanto os indices de cada subvetor forem menores que o indice de sua ultima posicao
   while (i < n1 && j < n2)
   {
-    if (L[i] <= R[j])
+    if (left[i] <= right[j]) // o <= é para garantir estabilidade, os da esquerda sempre ficarao a esquerda. o Inverso seria apenas > para garantir o mesmo
     {
-      vetor[k] = L[i];
+      vetor[k] = left[i];
       i++;
     }
     else
     {
-      vetor[k] = R[j];
+      vetor[k] = right[j];
       j++;
     }
     k++;
   }
 
+  // No caso de sobrar em cada subvetor
   while (i < n1)
   {
-    vetor[k] = L[i];
+    vetor[k] = left[i];
     i++;
     k++;
-  } // Outro while para copiar quem sobrou em R
+  }
+
+  while (j < n2)
+  {
+    vetor[k] = right[j];
+    j++;
+    k++;
+  }
 }
 
 void mergeSort(int vetor[], int l, int r)
 {
-  // Roda enquanto o r for maior do que o l
   if (l < r)
   {
-    int m = l + (r - l) / 2; // Calcula o valor da metade do vetor
-    // Divide o vetor em dois
+    int m = l + (r - l) / 2;
     mergeSort(vetor, l, m);
     mergeSort(vetor, m + 1, r);
-
     merge(vetor, l, m, r);
   }
 }
 
-int main(void)
+int main()
 {
-  srand(time(NULL));
   int vetor[SIZE];
 
-  // Coloca números aleatórios no vetor
+  srand(time(NULL));
   for (int i = 0; i < SIZE; i++)
   {
     vetor[i] = rand() % 10;
   }
 
-  mergeSort(vetor, 0, SIZE - 1);
+  mergeSort(vetor, 0, 9);
 
+  // Exibir
   for (int i = 0; i < SIZE; i++)
   {
     printf("Vetor[%d] = %d\n", i, vetor[i]);
   }
-
   return 0;
 }
