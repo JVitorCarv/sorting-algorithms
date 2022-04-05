@@ -6,7 +6,7 @@ int partition(int A[], int l, int r)
     int i = l;
     for (int j = l + 1; j <= r; j++)
     {
-        // Checa se a posicao j e menor do que o pivot
+        // Checa se a posicao j e menor do que o pivot ou igual a ele
         if (A[j] <= pivot)
         {
             // Incrementa a posicao i para que troque a posicao verificada com o j
