@@ -6,11 +6,11 @@
 
 void merge(int vetor[], int l, int m, int r)
 {
-  int n1 = m - l + 1;
-  int n2 = r - m;
+  int n1 = m - l + 1; // n1 e o tamanho da primeira metade do vetor
+  int n2 = r - m;     // n2 e o tamanho da segunda metade do vetor
   int left[n1], right[n2];
 
-  // Preenche os subvetores
+  // Preenche os subvetores com os valores do vetor original
   for (int i = 0; i < n1; i++)
   {
     left[i] = vetor[i + l]; // +l porque o indice pode ser diferente de zero
