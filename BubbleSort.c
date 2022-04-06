@@ -1,9 +1,19 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+
 #define SIZE 10
 
 int main()
 {
-    int vetor[SIZE] = {10, 7, 9, 6, 8, 1, 2, 3, 5, 4}, temp;
+    int vetor[SIZE], temp;
+
+    srand(time(NULL));
+    // Atribui valores aleatorios ao vetor
+    for (int i = 0; i < SIZE; i++)
+    {
+        vetor[i] = rand() % 10;
+    }
 
     // Para cada elemento no vetor (-1, a última significaria apenas comparar consigo mesmo)
     for (int i = 0; i < SIZE - 1; i++)
