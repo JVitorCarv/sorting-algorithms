@@ -1,9 +1,14 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+
+#define SIZE 10
 
 int partition(int A[], int l, int r)
 {
     int pivot = A[l];
     int i = l;
+
     for (int j = l + 1; j <= r; j++)
     {
         // Checa se a posicao j e menor do que o pivot ou igual a ele
@@ -38,11 +43,17 @@ void quicksort(int A[], int l, int r)
 
 int main()
 {
-    int vetor[] = {4, 1, 2, 5, 3};
+    int vetor[SIZE];
 
-    quicksort(vetor, 0, 4);
+    srand(time(NULL));
+    for (int i = 0; i < SIZE; i++)
+    {
+        vetor[i] = rand() % 10;
+    }
 
-    for (int i = 0; i < 5; i++)
+    quicksort(vetor, 0, SIZE - 1);
+
+    for (int i = 0; i < SIZE; i++)
     {
         printf("Vetor[%d] = %d\n", i, vetor[i]);
     }
